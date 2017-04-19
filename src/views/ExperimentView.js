@@ -15,9 +15,9 @@ const styles = StyleSheet.create(Object.assign({}, appStyles, {
 export default class ExperimentView extends Component {
   render() {
     return (
-      <View style={styles.view}>
+      <View style={[styles.view, styles.titleSpace]}>
         <Text style={styles.title}>
-          Experiment
+          { this.props.experimentId }
         </Text>
         <Button
           title="Edit Experiment"

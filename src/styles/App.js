@@ -11,6 +11,9 @@ export default {
     flex: 1,
     justifyContent: 'flex-start',
   },
+  titleSpace: {
+    paddingTop: 60
+  },
   title: {
     color: '#333',
     fontSize: 24,

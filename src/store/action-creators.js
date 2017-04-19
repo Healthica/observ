@@ -7,7 +7,22 @@ export function loadLocalStateExperiments() {
   return function (dispatch) {
     store.get(STORE_EXPERIMENTS)
       .then(experiments => {
-        dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments })
+        // dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments })
+        const fakeExperiments = {
+          data: [
+            {
+              id: 'abc123',
+              title: 'Diet Experiment',
+              state: 'active',
+              form: [],
+              measurments: []
+            }
+          ],
+          map: {
+            abc123: 0
+          }
+        }
+        dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments: fakeExperiments })
       })
       .catch(error => {
         dispatch({ type: 'ERROR', error })

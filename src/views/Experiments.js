@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import {
   Button,
@@ -12,26 +13,30 @@ const styles = StyleSheet.create(Object.assign({}, appStyles, {
   
 }))
 
-export default class Experiments extends Component {
-  navigateToWelcome() {
-    Actions.welcome()
-  }
+import ExperimentOverview from '../components/ExperimentOverview'
 
+class Experiments extends Component {
   render() {
     return (
-      <View style={styles.view}>
-        <Text style={styles.title}>
-          Experiments
-        </Text>
+      <View style={[styles.view, styles.titleSpace]}>
+        {
+          this.props.experiments.data.map((e) => {
+            return <ExperimentOverview key={e.id} data={e} />
+          })
+        }
         <Button
           title="New Experiment"
           onPress={Actions.experimentCreate}
-        />
-        <Button
-          title="View Experiment"
-          onPress={Actions.experimentView}
         />
       </View>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    experiments: state.experiments
+  }
+}
+const ConnectedExperiments = connect(mapStateToProps)(Experiments)
+export default ConnectedExperiments

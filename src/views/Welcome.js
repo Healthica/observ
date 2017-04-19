@@ -154,7 +154,7 @@ class Welcome extends Component {
   }
 
   render() {
-    const { experiments, user, reduxState } = this.props
+    const { experiments, user } = this.props
     let pageProps = {
       nextPage: this.nextPage.bind(this),
       prevPage: this.prevPage.bind(this),
@@ -194,8 +194,7 @@ class Welcome extends Component {
 const mapStateToProps = (state/*, props*/) => {
   return {
     experiments: state.experiments,
-    user: state.user,
-    reduxState: state
+    user: state.user
   }
 }
 const ConnectedWelcome = connect(mapStateToProps)(Welcome)

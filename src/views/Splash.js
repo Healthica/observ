@@ -32,15 +32,15 @@ const styles = StyleSheet.create(Object.assign({}, appStyles, {
 
 const SPLASH_TIME = 800
 
-class Welcome extends Component {
+class Splash extends Component {
   componentDidMount() {
     this.props.dispatch(actionCreators.loadLocalStateUser())
     this.props.dispatch(actionCreators.loadLocalStateExperiments())
 
     // Force welcome screen
-    setTimeout(() => {
-      this.props.dispatch(actionCreators.setUserFirstTime(true))
-    }, 300)
+    // setTimeout(() => {
+    //   this.props.dispatch(actionCreators.setUserFirstTime(true))
+    // }, 300)
 
     setTimeout(() => {
       if (this.props.user.is_first_time === false) {
@@ -72,8 +72,8 @@ class Welcome extends Component {
 const mapStateToProps = (state/*, props*/) => {
   return {
     user: state.user,
-    reduxState: state
+    experiments: state.experiments
   }
 }
-const ConnectedWelcome = connect(mapStateToProps)(Welcome)
-export default ConnectedWelcome
+const ConnectedSplash = connect(mapStateToProps)(Splash)
+export default ConnectedSplash
