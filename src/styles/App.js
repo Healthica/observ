@@ -11,7 +11,7 @@ export default {
     flex: 1
   },
   titleSpace: {
-    paddingTop: 54
+    height: 54
   },
   title: {
     color: '#333',

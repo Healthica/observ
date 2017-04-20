@@ -19,7 +19,9 @@ const styles = StyleSheet.create(Object.assign({}, appStyles, {
   experimentsPresetsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
+  },
+  experimentsPresetsShowMoreToggle: {
     marginBottom: 90
   }
 }))
@@ -27,44 +29,63 @@ const styles = StyleSheet.create(Object.assign({}, appStyles, {
 import ExperimentOverview from '../components/ExperimentOverview'
 import ExperimentCreateButton from '../components/ExperimentCreateButton'
 
+const minimumVisiblePresets = 6
 const experimentsPresets = [
   {
-    id: 1,
     title: 'Blank',
     description: 'Create a completely custom experiment',
     image: 'blank'
   }, {
-    id: 2,
     title: 'Diet',
     description: 'Test different diets to meet your goals',
     image: 'diet'
   }, {
-    id: 3,
     title: 'A/B Test',
     description: 'Test multiple variants to find out what works best',
     image: 'ab-test'
   }, {
-    id: 4,
     title: 'Sleep',
     description: 'See how your sleep affects different aspects of your life',
     image: 'sleep'
   }, {
-    id: 5,
     title: 'Correlation',
     description: 'Find out how different events correlate over time',
     image: 'correlation'
   }, {
-    id: 6,
     title: 'Symptoms',
     description: 'Keep track of health symptoms and possible causes',
     image: 'exercise'
+  }, {
+    title: 'Breakfast',
+    description: 'Which breakfast keeps you full the longest?',
+    image: 'extra'
+  }, {
+    title: 'Allergy',
+    description: 'Pinpoint the specific triggers of your allergy',
+    image: 'extra'
+  }, {
+    title: 'Coffee',
+    description: 'Test your caffeine dependence',
+    image: 'extra'
+  }, {
+    title: 'Workout',
+    description: 'What is your best pre-workout supplement?',
+    image: 'extra'
   }
 ]
 
 class Experiments extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAllPresets: false
+    }
+  }
+
   render() {
     return (
-      <ScrollView style={[styles.view, styles.titleSpace]}>
+      <ScrollView style={styles.view}>
+        <View style={styles.titleSpace}></View>
         {
           this.props.experiments.data.map((e) => {
             return <ExperimentOverview key={e.id} data={e} />
@@ -75,11 +96,21 @@ class Experiments extends Component {
         </Text>
         <View style={styles.experimentsPresetsContainer}>
           {
-            experimentsPresets.map((e) => {
-              return <ExperimentCreateButton key={e.id} data={e} />
+            experimentsPresets.map((e, i) => {
+              if (this.state.showAllPresets === false && i >= minimumVisiblePresets) {
+                return
+              }
+              return <ExperimentCreateButton key={i} data={e} />
             })
           }
         </View>
+        <Button
+           style={styles.experimentsPresetsShowMoreToggle}
+          title={ this.state.showAllPresets ? 'Show less' : 'Show more' }
+          onPress={() => {
+            this.setState({ showAllPresets: !this.state.showAllPresets })
+          }}
+        />
       </ScrollView>
     )
   }
