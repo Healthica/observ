@@ -8,8 +8,7 @@ export default {
   },
   view: {
     backgroundColor: '#eee',
-    flex: 1,
-    // justifyContent: 'flex-start',
+    flex: 1
   },
   titleSpace: {
     paddingTop: 54
