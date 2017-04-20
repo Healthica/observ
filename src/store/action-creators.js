@@ -13,13 +13,34 @@ export function loadLocalStateExperiments() {
             {
               id: 'abc123',
               title: 'Diet Experiment',
-              state: 'active',
+              status: 'active',
               form: [],
-              measurments: []
+              measurments: [],
+              settings: {},
+              results: {
+                effectSize: 1.4,
+                significance: 92.1,
+                remainingDays: 6,
+                progress: 0.4
+              }
+            }, {
+              id: 'abc124',
+              title: 'Coffee and Sleep',
+              status: 'active',
+              form: [],
+              measurments: [],
+              settings: {},
+              results: {
+                effectSize: 1.4,
+                significance: 92.1,
+                remainingDays: 2,
+                progress: 0.7
+              }
             }
           ],
           map: {
-            abc123: 0
+            abc123: 0,
+            abc124: 1
           }
         }
         dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments: fakeExperiments })

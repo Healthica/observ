@@ -9,10 +9,10 @@ export default {
   view: {
     backgroundColor: '#eee',
     flex: 1,
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
   },
   titleSpace: {
-    paddingTop: 60
+    paddingTop: 54
   },
   title: {
     color: '#333',

@@ -5,6 +5,7 @@ import {
   Button,
   Text,
   StyleSheet,
+  ScrollView,
   View
 } from 'react-native'
 
@@ -18,7 +19,7 @@ import ExperimentOverview from '../components/ExperimentOverview'
 class Experiments extends Component {
   render() {
     return (
-      <View style={[styles.view, styles.titleSpace]}>
+      <ScrollView style={[styles.view, styles.titleSpace]}>
         {
           this.props.experiments.data.map((e) => {
             return <ExperimentOverview key={e.id} data={e} />
@@ -28,7 +29,7 @@ class Experiments extends Component {
           title="New Experiment"
           onPress={Actions.experimentCreate}
         />
-      </View>
+      </ScrollView>
     )
   }
 }
