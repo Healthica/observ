@@ -1,32 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import {
-  Button,
-  StyleSheet,
-  ScrollView,
-  Text,
-  View
-} from 'react-native'
-import { Container, Content, List } from 'native-base'
-import Header from '../components/Header'
 
-import appStyles from '../styles/App'
-const styles = StyleSheet.create(Object.assign({}, appStyles, {
-  experimentsNewTitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginTop: 60,
-    marginBottom: 20
-  },
-  experimentsPresetsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around'
-  },
-  experimentsPresetsShowMoreToggle: {
-    marginBottom: 90
-  }
-}))
+import { Container, Content, List, Button, H2, Text } from 'native-base'
+import Header from '../components/Header'
 
 import ExperimentOverview from '../components/ExperimentOverview'
 import ExperimentCreateButton from '../components/ExperimentCreateButton'
@@ -36,43 +12,43 @@ const experimentsPresets = [
   {
     title: 'Blank',
     description: 'Create a completely custom experiment',
-    image: 'blank'
+    icon: 'ios-document-outline'
   }, {
     title: 'Diet',
     description: 'Test different diets to meet your goals',
-    image: 'diet'
+    icon: 'ios-nutrition'
   }, {
     title: 'A/B Test',
     description: 'Test multiple variants to find out what works best',
-    image: 'ab-test'
+    icon: 'ios-photos-outline'
   }, {
     title: 'Sleep',
     description: 'See how your sleep affects different aspects of your life',
-    image: 'sleep'
+    icon: 'ios-alarm-outline'
   }, {
     title: 'Correlation',
     description: 'Find out how different events correlate over time',
-    image: 'correlation'
+    icon: 'ios-color-filter-outline'
   }, {
     title: 'Symptoms',
     description: 'Keep track of health symptoms and possible causes',
-    image: 'exercise'
+    icon: 'ios-pulse'
   }, {
     title: 'Breakfast',
     description: 'Which breakfast keeps you full the longest?',
-    image: 'extra'
+    icon: 'ios-restaurant'
   }, {
     title: 'Allergy',
     description: 'Pinpoint the specific triggers of your allergy',
-    image: 'extra'
+    icon: 'ios-paw'
   }, {
     title: 'Coffee',
     description: 'Test your caffeine dependence',
-    image: 'extra'
+    icon: 'ios-cafe'
   }, {
     title: 'Workout',
     description: 'What is your best pre-workout supplement?',
-    image: 'extra'
+    icon: 'ios-bicycle'
   }
 ]
 
@@ -96,10 +72,16 @@ class Experiments extends Component {
             })
           }
           </List>
-          <Text style={styles.experimentsNewTitle}>
+
+          <Text style={{
+            fontSize: 16,
+            textAlign: 'center',
+            marginTop: 80,
+            marginBottom: 20
+          }}>
             Start a new experiment
           </Text>
-          <View style={styles.experimentsPresetsContainer}>
+          <List>
             {
               experimentsPresets.map((e, i) => {
                 if (this.state.showAllPresets === false && i >= minimumVisiblePresets) {
@@ -108,14 +90,16 @@ class Experiments extends Component {
                 return <ExperimentCreateButton key={i} data={e} />
               })
             }
-          </View>
-          <Button
-             style={styles.experimentsPresetsShowMoreToggle}
-            title={ this.state.showAllPresets ? 'Show less' : 'Show more' }
+          </List>
+          <Button light full
             onPress={() => {
               this.setState({ showAllPresets: !this.state.showAllPresets })
             }}
-          />
+          >
+            <Text>
+              { this.state.showAllPresets ? 'Show less' : 'Show more' }
+            </Text>
+          </Button>
         </Content>
       </Container>
     )
