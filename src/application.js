@@ -15,13 +15,13 @@ export default class Application extends Component {
     return (
       <Provider store={ this.props.store }>
         <Router>
-          <Scene key="root">
-            <Scene key="splash" component={Splash} hideNavBar={true} initial={true} />
-            <Scene key="welcome" component={Welcome} hideNavBar={true} />
-            <Scene key="experiments" component={Experiments} hideNavBar={false} title="Experiments" />
-            <Scene key="experimentCreate" component={ExperimentCreate} hideNavBar={false} title="New Experiment" />
-            <Scene key="experimentView" component={ExperimentView} hideNavBar={false} title="Experiment" />
-            <Scene key="experimentEdit" component={ExperimentEdit} hideNavBar={false} title="Experiment Edit" />
+          <Scene key="root" hideNavBar={true}>
+            <Scene key="splash" component={Splash} initial={true} />
+            <Scene key="welcome" component={Welcome} />
+            <Scene key="experiments" component={Experiments} />
+            <Scene key="experimentCreate" component={ExperimentCreate} />
+            <Scene key="experimentView" component={ExperimentView} />
+            <Scene key="experimentEdit" component={ExperimentEdit} />
           </Scene>
         </Router>
       </Provider>

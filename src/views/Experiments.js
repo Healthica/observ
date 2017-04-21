@@ -7,6 +7,7 @@ import {
   ScrollView,
   View
 } from 'react-native'
+import Header from '../components/Header'
 
 import appStyles from '../styles/App'
 const styles = StyleSheet.create(Object.assign({}, appStyles, {
@@ -85,6 +86,7 @@ class Experiments extends Component {
   render() {
     return (
       <ScrollView style={styles.view}>
+        <Header title="Experiments" showMenu={true} />
         <View style={styles.titleSpace}></View>
         {
           this.props.experiments.data.map((e) => {
