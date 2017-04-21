@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   Button,
-  Text,
   StyleSheet,
   ScrollView,
+  Text,
   View
 } from 'react-native'
+import { Container, Content, List } from 'native-base'
 import Header from '../components/Header'
 
 import appStyles from '../styles/App'
@@ -85,35 +86,38 @@ class Experiments extends Component {
 
   render() {
     return (
-      <ScrollView style={styles.view}>
+      <Container>
         <Header title="Experiments" showMenu={true} />
-        <View style={styles.titleSpace}></View>
-        {
-          this.props.experiments.data.map((e) => {
-            return <ExperimentOverview key={e.id} data={e} />
-          })
-        }
-        <Text style={styles.experimentsNewTitle}>
-          Start a new experiment
-        </Text>
-        <View style={styles.experimentsPresetsContainer}>
+        <Content>
+          <List>
           {
-            experimentsPresets.map((e, i) => {
-              if (this.state.showAllPresets === false && i >= minimumVisiblePresets) {
-                return
-              }
-              return <ExperimentCreateButton key={i} data={e} />
+            this.props.experiments.data.map((e) => {
+              return <ExperimentOverview key={e.id} data={e} />
             })
           }
-        </View>
-        <Button
-           style={styles.experimentsPresetsShowMoreToggle}
-          title={ this.state.showAllPresets ? 'Show less' : 'Show more' }
-          onPress={() => {
-            this.setState({ showAllPresets: !this.state.showAllPresets })
-          }}
-        />
-      </ScrollView>
+          </List>
+          <Text style={styles.experimentsNewTitle}>
+            Start a new experiment
+          </Text>
+          <View style={styles.experimentsPresetsContainer}>
+            {
+              experimentsPresets.map((e, i) => {
+                if (this.state.showAllPresets === false && i >= minimumVisiblePresets) {
+                  return
+                }
+                return <ExperimentCreateButton key={i} data={e} />
+              })
+            }
+          </View>
+          <Button
+             style={styles.experimentsPresetsShowMoreToggle}
+            title={ this.state.showAllPresets ? 'Show less' : 'Show more' }
+            onPress={() => {
+              this.setState({ showAllPresets: !this.state.showAllPresets })
+            }}
+          />
+        </Content>
+      </Container>
     )
   }
 }
