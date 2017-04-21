@@ -14,21 +14,21 @@ const experimentsPresets = [
     description: 'Create a completely custom experiment',
     icon: 'ios-document-outline'
   }, {
-    title: 'Diet',
-    description: 'Test different diets to meet your goals',
-    icon: 'ios-nutrition'
-  }, {
     title: 'A/B Test',
     description: 'Test multiple variants to find out what works best',
     icon: 'ios-photos-outline'
   }, {
-    title: 'Sleep',
-    description: 'See how your sleep affects different aspects of your life',
-    icon: 'ios-alarm-outline'
-  }, {
     title: 'Correlation',
     description: 'Find out how different events correlate over time',
     icon: 'ios-color-filter-outline'
+  }, {
+    title: 'Diet',
+    description: 'Test different diets to meet your goals',
+    icon: 'ios-nutrition'
+  }, {
+    title: 'Sleep',
+    description: 'See how your sleep affects different aspects of your life',
+    icon: 'ios-alarm-outline'
   }, {
     title: 'Symptoms',
     description: 'Keep track of health symptoms and possible causes',
