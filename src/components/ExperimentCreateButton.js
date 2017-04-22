@@ -10,7 +10,15 @@ export default class ExperimentCreateButton extends Component {
           experiment: {
             title: '',
             type: 'ab_test',
-            form: [],
+            form: [
+              {
+                id: 1,
+                title: 'One'
+              }, {
+                id: 2,
+                title: 'Two'
+              }
+            ],
             settings: {}
           }
         })}}

@@ -3,6 +3,7 @@ import { Actions } from 'react-native-router-flux'
 import { Container, Content, Button, Text, Form, Item, Input, Label, Picker } from 'native-base'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import Header from '../components/Header'
+import FormItem from '../components/FormItem'
 
 export default class ExperimentCreate extends Component {
   constructor(props) {
@@ -34,9 +35,25 @@ export default class ExperimentCreate extends Component {
                 onValueChange={(key) => this.setState({ type: key })}>
                 <Item label="Correlation" value="correlation" />
                 <Item label="A/B Test" value="ab_test" />
-               </Picker>
+              </Picker>
             </Col>
           </Grid>
+          {
+            this.state.form.map((data, n) => {
+              return <FormItem key={n} {...data} />
+            })
+          }
+          <Button onPress={() => {
+            this.setState({
+              form: [...this.state.form, {
+                title: 'New stuff'
+              }]
+            })
+          }}>
+            <Text>
+              Add Question
+            </Text>
+          </Button>
           <Button onPress={Actions.experiments} >
             <Text>
               Create
