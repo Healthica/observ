@@ -6,7 +6,14 @@ export default class ExperimentCreateButton extends Component {
   render() {
     return (
       <ListItem 
-        onPress={() => { Actions.experimentCreate() }}
+        onPress={() => { Actions.experimentCreate({
+          experiment: {
+            title: '',
+            type: 'ab_test',
+            form: [],
+            settings: {}
+          }
+        })}}
         >
         <Icon name={this.props.data.icon} />
         <Body>
