@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, Input, Button, View } from 'native-base'
+import { Input, Button, Icon, View } from 'native-base'
 
 import Counter from './FormItems/CounterEdit'
 import Dropdown from './FormItems/DropdownEdit'
@@ -11,34 +11,44 @@ export default class FormItemEdit extends Component {
   }
 
   render() {
-    let Item
+    let ItemEdit
     switch (this.props.type) {
       case 'counter':
-        Item = <Counter {...this.props} />
+        ItemEdit = <Counter {...this.props} />
         break;
       case 'dropdown':
-        Item = <Dropdown {...this.props} />
+        ItemEdit = <Dropdown {...this.props} />
         break;
       case 'scale':
-        Item = <Scale {...this.props} />
+        ItemEdit = <Scale {...this.props} />
         break;
     }
 
     return (
       <View style={style.item}>
-        <Input
-          placeholder="Question"
-          onChangeText={ text => this.onChange({ question: text }) }
-          value={this.props.question}
-          style={style.title}
-        />
-        { Item }
+        <View style={style.row}>
+          <Input
+            placeholder="Question"
+            onChangeText={ text => this.onChange({ question: text }) }
+            value={this.props.question}
+            style={style.title}
+          />
+          <Button transparent>
+            <Icon name="md-trash" onPress={() => {this.props.onDelete()}} style={style.moreIcon} />
+          </Button>
+        </View>
+        { ItemEdit }
       </View>
     )
   }
 }
 
 const style = {
+  row: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   item: {
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
@@ -48,5 +58,9 @@ const style = {
   },
   title: {
     fontSize: 22
+  },
+  moreIcon: {
+    color: '#999',
+    fontSize: 20
   }
 }

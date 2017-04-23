@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Actions } from 'react-native-router-flux'
-import { Container, Content, Button, Text, Form, Item, Input, Label, Picker, Fab, Icon, ActionSheet, View } from 'native-base'
+import { Container, Content, Form, Item, Input, Fab, Icon, ActionSheet, View } from 'native-base'
 import Header from '../components/Header'
 import FormItemEdit from '../components/FormItemEdit'
 
@@ -37,7 +37,13 @@ export default class ExperimentCreate extends Component {
         title: 'Scale',
         item: {
           question: '',
-          type: 'scale'
+          type: 'scale',
+          options: {
+            min: 1,
+            max: 5,
+            minLabel: '',
+            maxLabel: ''
+          }
         }
       }
     ]
@@ -84,6 +90,11 @@ export default class ExperimentCreate extends Component {
                 onChange={item => {
                   const newState = this.state.form.slice()
                   newState[n] = item
+                  this.setState({ form: newState })
+                }}
+                onDelete={() => {
+                  const newState = this.state.form.slice()
+                  newState.splice(n, 1)
                   this.setState({ form: newState })
                 }}
               />
