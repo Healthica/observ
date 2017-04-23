@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import { Actions } from 'react-native-router-flux'
-import { Header, Body, Left, Button, Title, Icon } from 'native-base'
+import { Header, Body, Left, Right, Button, Title, Icon } from 'native-base'
 
 export default class AppHeader extends Component {
   render() {
+    let Actions
+    if (this.props.actions !== undefined) {
+      Actions = this.props.actions
+    }
     return (
       <Header>
         <Left>
@@ -23,6 +27,12 @@ export default class AppHeader extends Component {
         <Body>
           <Title>{this.props.title}</Title>
         </Body>
+        {
+          Actions &&
+          <Right>
+            <Actions />
+          </Right>
+        }
       </Header>
     )
   }
