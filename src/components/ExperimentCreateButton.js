@@ -9,14 +9,19 @@ export default class ExperimentCreateButton extends Component {
         onPress={() => { Actions.experimentCreate({
           experiment: {
             title: '',
-            type: 'ab_test',
             form: [
               {
                 id: 1,
-                title: 'One'
+                title: 'One',
+                type: 'dropdown'
               }, {
                 id: 2,
-                title: 'Two'
+                title: 'Two',
+                type: 'counter'
+              }, {
+                id: 3,
+                title: 'Three',
+                type: 'scale'
               }
             ],
             settings: {}
