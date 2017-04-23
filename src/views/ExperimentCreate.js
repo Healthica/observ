@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { Actions } from 'react-native-router-flux'
 import { Container, Content, Button, Text, Form, Item, Input, Label, Picker, Fab, Icon, ActionSheet, View } from 'native-base'
-import { Col, Row, Grid } from 'react-native-easy-grid'
 import Header from '../components/Header'
-import FormItem from '../components/FormItem'
+import FormItemEdit from '../components/FormItemEdit'
 
 export default class ExperimentCreate extends Component {
   constructor(props) {
@@ -19,9 +18,28 @@ export default class ExperimentCreate extends Component {
 
   openFabOptions() {
     const options = [
-      { title: 'Dropdown', type: 'dropdown' },
-      { title: 'Counter', type: 'counter' },
-      { title: 'Scale', type: 'scale' }
+      {
+        title: 'Dropdown',
+        item: {
+          question: '',
+          type: 'dropdown',
+          options: [
+            'Option 1'
+          ]
+        }
+      }, {
+        title: 'Counter',
+        item: {
+          question: '',
+          type: 'counter'
+        }
+      }, {
+        title: 'Scale',
+        item: {
+          question: '',
+          type: 'scale'
+        }
+      }
     ]
     ActionSheet.show(
       {
@@ -29,7 +47,7 @@ export default class ExperimentCreate extends Component {
         title: 'Add Question'
       },
       (buttonIndex) => {
-        this.addFormItem(options[buttonIndex])
+        this.addFormItem(options[buttonIndex].item)
       }
     )
   }
@@ -62,9 +80,16 @@ export default class ExperimentCreate extends Component {
           </Form>
           {
             this.state.form.map((data, n) => {
-              return <FormItem key={n} {...data} />
+              return <FormItemEdit key={n} {...data}
+                onChange={item => {
+                  const newState = this.state.form.slice()
+                  newState[n] = item
+                  this.setState({ form: newState })
+                }}
+              />
             })
           }
+          <View style={{ height: 120 }}></View>
         </Content>
         <Fab
           active={false}

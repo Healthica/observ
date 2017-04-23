@@ -5,23 +5,20 @@ import { ListItem, Body, Left, Right, Text, Icon, View } from 'native-base'
 export default class ExperimentCreateButton extends Component {
   render() {
     return (
-      <ListItem 
+      <ListItem
         onPress={() => { Actions.experimentCreate({
           experiment: {
             title: '',
             form: [
               {
                 id: 1,
-                title: 'One',
-                type: 'dropdown'
-              }, {
-                id: 2,
-                title: 'Two',
-                type: 'counter'
-              }, {
-                id: 3,
-                title: 'Three',
-                type: 'scale'
+                question: 'What is your favorite color?',
+                type: 'dropdown',
+                options: [
+                  'Red',
+                  'Green',
+                  'Blue'
+                ]
               }
             ],
             settings: {}
