@@ -3,6 +3,7 @@ import { Text, Input, Button, View } from 'native-base'
 
 import Counter from './FormItems/CounterEdit'
 import Dropdown from './FormItems/DropdownEdit'
+import Scale from './FormItems/ScaleEdit'
 
 export default class FormItemEdit extends Component {
   onChange(data) {
@@ -17,6 +18,9 @@ export default class FormItemEdit extends Component {
         break;
       case 'dropdown':
         Item = <Dropdown {...this.props} />
+        break;
+      case 'scale':
+        Item = <Scale {...this.props} />
         break;
     }
 

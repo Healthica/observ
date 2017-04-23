@@ -12,13 +12,14 @@ export default class ExperimentCreateButton extends Component {
             form: [
               {
                 id: 1,
-                question: 'What is your favorite color?',
-                type: 'dropdown',
-                options: [
-                  'Red',
-                  'Green',
-                  'Blue'
-                ]
+                question: 'How do you feel?',
+                type: 'scale',
+                options: {
+                  min: 0,
+                  max: 10,
+                  minLabel: '',
+                  maxLabel: ''
+                }
               }
             ],
             settings: {}
