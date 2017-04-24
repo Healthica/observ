@@ -75,6 +75,13 @@ export function addExperiment(experiment) {
   }
 }
 
+export function updateExperiment(experiment) {
+  return function (dispatch, getState) {
+    dispatch({ type: 'UPDATE_EXPERIMENT', experiment })
+    store.save(STORE_EXPERIMENTS, getState().experiments)
+  }
+}
+
 export function deleteExperiment(experimentId) {
   return function (dispatch, getState) {
     dispatch({ type: 'DELETE_EXPERIMENT', experimentId })

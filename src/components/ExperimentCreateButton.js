@@ -6,7 +6,7 @@ export default class ExperimentCreateButton extends Component {
   render() {
     return (
       <ListItem
-        onPress={() => { Actions.experimentCreate({
+        onPress={() => { Actions.experimentEdit({
           experiment: {
             title: '',
             form: [

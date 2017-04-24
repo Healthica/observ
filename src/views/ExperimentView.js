@@ -2,11 +2,18 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
-import { Container, Button, Text } from 'native-base'
+import { Container, Button, Content, Text } from 'native-base'
 import Header from '../components/Header'
 import _find from 'lodash/find'
 
 class ExperimentEdit extends Component {
+  constructor(props) {
+    super(props)
+    this.experiment = _find(this.props.experiments, { id: this.props.experimentId }) || {
+      title: ''
+    }
+  }
+
   onDelete() {
     this.props.dispatch(actionCreators.deleteExperiment(this.props.experimentId))
     Actions.experiments({
@@ -14,26 +21,29 @@ class ExperimentEdit extends Component {
     })
   }
 
+  onEdit() {
+    Actions.experimentEdit({ experiment: this.experiment })
+  }
+
   render() {
-    const experiment = _find(this.props.experiments, { id: this.props.experimentId }) || {
-      title: ''
-    }
     return (
       <Container>
-        <Header title={ experiment.title } />
-        <Text>
-          {JSON.stringify(experiment, null, 2)}
-        </Text>
-        <Button onPress={() => {this.onDelete()}} >
+        <Header title={ this.experiment.title } />
+        <Content>
           <Text>
-            Delete Experiment
+            {JSON.stringify(this.experiment, null, 2)}
           </Text>
-        </Button>
-        <Button onPress={Actions.experimentEdit} >
-          <Text>
-            Edit Experiment
-          </Text>
-        </Button>
+          <Button onPress={() => {this.onDelete()}} >
+            <Text>
+              Delete Experiment
+            </Text>
+          </Button>
+          <Button onPress={() => { this.onEdit()}} >
+            <Text>
+              Edit Experiment
+            </Text>
+          </Button>
+        </Content>
       </Container>
     )
   }

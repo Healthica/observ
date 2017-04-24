@@ -10,7 +10,11 @@ export default class ExperimentOverview extends Component {
       }}>
         <Body>
           <Text>{this.props.data.title}</Text>
-          <Text note>{this.props.data.results.remainingDays} days left</Text>
+          {
+            this.props.data.results && this.props.data.results.remainingDays &&
+            <Text note>{this.props.data.results.remainingDays} days left</Text> ||
+            <Text note>New experiment</Text>
+          }
         </Body>
         <Right>
           <Icon ios='ios-arrow-forward' android="md-arrow-round-forward" />
