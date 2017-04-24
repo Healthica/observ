@@ -9,6 +9,11 @@ export function experiments(state = initialExperimentsState, action) {
         ...state,
         ...action.experiments
       }
+    case 'ADD_EXPERIMENT':
+      return {
+        ...state,
+        data: [...state.data, action.experiment]
+      }
     case 'ERROR':
       alert(JSON.stringify(action))
       return {

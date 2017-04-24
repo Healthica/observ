@@ -86,3 +86,9 @@ export function saveLocalStateUser(state) {
     store.save(STORE_USER, state)
   }
 }
+
+export function addExperiment(experiment) {
+  return function (dispatch) {
+    dispatch({ type: 'ADD_EXPERIMENT', experiment })
+  }
+}

@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import { Container, Content, Form, Item, Input, Fab, Icon, ActionSheet, View } from 'native-base'
+import * as actionCreators from '../store/action-creators'
+import uuid from 'uuid/v4'
+
 import Header from '../components/Header'
 import FormItemEdit from '../components/FormItemEdit'
 
-export default class ExperimentCreate extends Component {
+class ExperimentCreate extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, this.props.experiment)
@@ -66,9 +70,21 @@ export default class ExperimentCreate extends Component {
         }
       }, {
         text: 'Save',
-        cb: () => {Actions.experiments({
-          direction: 'leftToRight'
-        })}
+        cb: () => {
+          const id = uuid()
+          this.props.dispatch(actionCreators.addExperiment({
+            id: id,
+            status: 'active',
+            form: [],
+            settings: {},
+            measurments: [],
+            results: {},
+            ...this.state
+          }))
+          Actions.experiments({
+            direction: 'leftToRight'
+          }
+        )}
       }
     ]
     return (
@@ -113,3 +129,11 @@ export default class ExperimentCreate extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    experiments: state.experiments
+  }
+}
+const ConnectedExperimentCreate = connect(mapStateToProps)(ExperimentCreate)
+export default ConnectedExperimentCreate
