@@ -1,28 +1,24 @@
-const initialExperimentsState = {
-  data: [],
-  map: {}
-}
+const initialExperimentsState = []
 export function experiments(state = initialExperimentsState, action) {
   switch (action.type) {
     case 'SET_EXPERIMENTS_STATE':
-      return {
-        ...state,
-        ...action.experiments
-      }
+      return action.experiments
+
     case 'ADD_EXPERIMENT':
-      return {
-        ...state,
-        data: [...state.data, action.experiment],
-        map: {
-          ...state.map,
-          [action.experiment.id]: state.data.length
-        }
-      }
+      return [
+      ...state,
+      action.experiment
+    ]
+
+    case 'DELETE_EXPERIMENT':
+      return _.reject(state, { id: action.experimentId })
+
     case 'ERROR':
       alert(JSON.stringify(action))
       return {
         ...state
       }
+
     default:
       return state
   }

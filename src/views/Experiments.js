@@ -67,7 +67,7 @@ class Experiments extends Component {
         <Content>
           <List>
           {
-            this.props.experiments.data.map((e) => {
+            this.props.experiments.map((e) => {
               return <ExperimentOverview key={e.id} data={e} />
             })
           }

@@ -7,43 +7,24 @@ export function loadLocalStateExperiments() {
   return function (dispatch) {
     store.get(STORE_EXPERIMENTS)
       .then(experiments => {
-        // dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments })
-        const fakeExperiments = {
-          data: [
-            {
-              id: 'abc123',
-              title: 'Diet Experiment',
-              status: 'active',
-              form: [],
-              measurments: [],
-              settings: {},
-              results: {
-                effectSize: 1.4,
-                significance: 92.1,
-                remainingDays: 6,
-                progress: 0.4
-              }
-            }, {
-              id: 'abc124',
-              title: 'Coffee and Sleep',
-              status: 'active',
-              form: [],
-              measurments: [],
-              settings: {},
-              results: {
-                effectSize: 1.4,
-                significance: 92.1,
-                remainingDays: 2,
-                progress: 0.7
-              }
+        const fakeExperiments = [
+          {
+            id: 'abc333',
+            title: 'Diet Experiment',
+            status: 'active',
+            form: [],
+            measurments: [],
+            settings: {},
+            results: {
+              effectSize: 1.4,
+              significance: 92.1,
+              remainingDays: 6,
+              progress: 0.4
             }
-          ],
-          map: {
-            abc123: 0,
-            abc124: 1
           }
-        }
-        dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments: fakeExperiments })
+        ]
+        // dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments: fakeExperiments })
+        dispatch({ type: 'SET_EXPERIMENTS_STATE', experiments })
       })
       .catch(error => {
         dispatch({ type: 'ERROR', error })
@@ -88,7 +69,15 @@ export function saveLocalStateUser(state) {
 }
 
 export function addExperiment(experiment) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     dispatch({ type: 'ADD_EXPERIMENT', experiment })
+    store.save(STORE_EXPERIMENTS, getState().experiments)
+  }
+}
+
+export function deleteExperiment(experimentId) {
+  return function (dispatch, getState) {
+    dispatch({ type: 'DELETE_EXPERIMENT', experimentId })
+    store.save(STORE_EXPERIMENTS, getState().experiments)
   }
 }

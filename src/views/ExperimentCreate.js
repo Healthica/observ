@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
-import { Container, Content, Form, Item, Input, Fab, Icon, ActionSheet, View } from 'native-base'
 import * as actionCreators from '../store/action-creators'
+import { Container, Content, Form, Item, Input, Fab, Icon, ActionSheet, View } from 'native-base'
 import uuid from 'uuid/v4'
 
 import Header from '../components/Header'
