@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
-import { Container, Content, Form, Item, Input, Fab, Icon, ActionSheet, View } from 'native-base'
+import { ActionSheet, Button, Container, Content, Fab, Form, Icon, Input, Item, Text, View } from 'native-base'
+import { Modal } from 'react-native'
+import _pick from 'lodash/pick'
 import uuid from 'uuid/v4'
 
 import Header from '../components/Header'
@@ -11,13 +13,19 @@ import FormItemEdit from '../components/FormItemEdit'
 class ExperimentCreate extends Component {
   constructor(props) {
     super(props)
-    this.state = Object.assign({}, this.props.experiment)
+    this.state = Object.assign({}, {
+      helpModalVisible: props.experiments.length === 0
+    }, this.props.experiment)
   }
 
   addFormItem(item) {
     this.setState({
       form: [...this.state.form, item]
     })
+  }
+
+  hideHelpModal() {
+    this.setState({ ...this.state, helpModalVisible: false })
   }
 
   openFabOptions() {
@@ -79,7 +87,7 @@ class ExperimentCreate extends Component {
             settings: {},
             measurments: [],
             results: {},
-            ...this.state
+            ..._pick(this.state, ['title', 'form', 'settings'])
           }))
           Actions.experiments({
             direction: 'leftToRight'
@@ -125,8 +133,54 @@ class ExperimentCreate extends Component {
           onPress={() => {this.openFabOptions()}}>
           <Icon name="md-add" />
         </Fab>
+        <Modal
+          animationType={"slide"}
+          transparent={true}
+          visible={this.state.helpModalVisible}
+          onRequestClose={() => {this.hideHelpModal()}}
+          >
+          <View style={style.helpModalBackground}>
+            <View style={style.helpModal}>
+              <Text>
+                An Experiment is a short form that you will fill in every day until the experiment is over.
+              </Text>
+              <Text>
+                Customize the questions in the form and check the settings for different configurations.
+              </Text>
+              <Button style={style.helpModalButton} onPress={() => {this.hideHelpModal()}}>
+                <Text>Got it</Text>
+              </Button>
+            </View>
+          </View>
+        </Modal>
       </Container>
     )
+  }
+}
+
+const style = {
+  helpModalBackground: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  helpModal: {
+    width: 300,
+    maxHeight: 260,
+    backgroundColor: '#fff',
+    borderRadius: 4,
+    padding: 16,
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  helpModalButton: {
+    alignSelf: 'flex-end'
   }
 }
 
