@@ -12,7 +12,11 @@ export function experiments(state = initialExperimentsState, action) {
     case 'ADD_EXPERIMENT':
       return {
         ...state,
-        data: [...state.data, action.experiment]
+        data: [...state.data, action.experiment],
+        map: {
+          ...state.map,
+          [action.experiment.id]: state.data.length
+        }
       }
     case 'ERROR':
       alert(JSON.stringify(action))
