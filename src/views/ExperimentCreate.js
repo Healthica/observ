@@ -9,12 +9,15 @@ import uuid from 'uuid/v4'
 
 import Header from '../components/Header'
 import FormItemEdit from '../components/FormItemEdit'
+import ExperimentSettingsModal from '../components/ExperimentSettings'
+import ExperimentHelpModal from '../components/ExperimentHelpModal'
 
 class ExperimentCreate extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, {
-      helpModalVisible: props.experiments.length === 0
+      helpModalVisible: props.experiments.length === 0,
+      settingsModalVisible: false
     }, this.props.experiment)
   }
 
@@ -26,6 +29,13 @@ class ExperimentCreate extends Component {
 
   hideHelpModal() {
     this.setState({ ...this.state, helpModalVisible: false })
+  }
+
+  showSettingsModal() {
+    this.setState({ ...this.state, settingsModalVisible: true })
+  }
+  hideSettingsModal() {
+    this.setState({ ...this.state, settingsModalVisible: false })
   }
 
   openFabOptions() {
@@ -75,6 +85,7 @@ class ExperimentCreate extends Component {
       {
         icon: 'md-settings',
         cb: () => {
+          this.showSettingsModal()
         }
       }, {
         text: 'Save',
@@ -133,54 +144,15 @@ class ExperimentCreate extends Component {
           onPress={() => {this.openFabOptions()}}>
           <Icon name="md-add" />
         </Fab>
-        <Modal
-          animationType={"slide"}
-          transparent={true}
+        <ExperimentHelpModal
           visible={this.state.helpModalVisible}
-          onRequestClose={() => {this.hideHelpModal()}}
-          >
-          <View style={style.helpModalBackground}>
-            <View style={style.helpModal}>
-              <Text>
-                An Experiment is a short form that you will fill in every day until the experiment is over.
-              </Text>
-              <Text>
-                Customize the questions in the form and check the settings for different configurations.
-              </Text>
-              <Button style={style.helpModalButton} onPress={() => {this.hideHelpModal()}}>
-                <Text>Got it</Text>
-              </Button>
-            </View>
-          </View>
-        </Modal>
+          hide={() => { this.hideHelpModal() }}/>
+        <ExperimentSettingsModal
+          visible={this.state.settingsModalVisible}
+          hide={() => { this.hideSettingsModal() }}
+          save={(settings) => { }} />
       </Container>
     )
-  }
-}
-
-const style = {
-  helpModalBackground: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  helpModal: {
-    width: 300,
-    maxHeight: 260,
-    backgroundColor: '#fff',
-    borderRadius: 4,
-    padding: 16,
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  helpModalButton: {
-    alignSelf: 'flex-end'
   }
 }
 

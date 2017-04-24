@@ -6,20 +6,23 @@ export default class AppHeader extends Component {
   render() {
     return (
       <Header>
-        <Left>
-            {
-              this.props.showMenu === true &&
-              <Button transparent>
-                <Icon name='menu' />
-              </Button>
-            }
-            {
-              this.props.showMenu !== true &&
-              <Button transparent onPress={() => { Actions.pop() }}>
-                <Icon name='arrow-back' />
-              </Button>
-            }
-        </Left>
+        {
+          this.props.noLeftActions !== true &&
+          <Left>
+              {
+                this.props.showMenu === true &&
+                <Button transparent>
+                  <Icon name='menu' />
+                </Button>
+              }
+              {
+                this.props.showMenu !== true &&
+                <Button transparent onPress={() => { Actions.pop() }}>
+                  <Icon name='arrow-back' />
+                </Button>
+              }
+          </Left>
+        }
         <Body>
           <Title>{this.props.title}</Title>
         </Body>
