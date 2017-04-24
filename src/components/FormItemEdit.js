@@ -29,6 +29,7 @@ export default class FormItemEdit extends Component {
         <View style={style.row}>
           <Input
             placeholder="Question"
+            selectTextOnFocus={true}
             onChangeText={ text => this.onChange({ question: text }) }
             value={this.props.question}
             style={style.title}
@@ -57,7 +58,9 @@ const style = {
     marginBottom: 16
   },
   title: {
-    fontSize: 22
+    fontSize: 22,
+    borderBottomWidth: 1,
+    borderBottomColor: '#dfdfdf'
   },
   moreIcon: {
     color: '#999',

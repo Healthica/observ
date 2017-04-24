@@ -114,6 +114,7 @@ class ExperimentCreate extends Component {
             <Item>
               <Input
                 placeholder="Experiment Name"
+                selectTextOnFocus={true}
                 onChangeText={(text) => this.setState({ title: text })}
                 value={this.state.title}
               />
