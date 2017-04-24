@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
-import { ActionSheet, Button, Container, Content, Fab, Form, Icon, Input, Item, Text, View } from 'native-base'
-import { Modal } from 'react-native'
+import { ActionSheet, Button, Container, Content, Fab, Icon, Text, View } from 'native-base'
+import { MKTextField } from 'react-native-material-kit'
 import _pick from 'lodash/pick'
 import uuid from 'uuid/v4'
 
@@ -36,6 +36,9 @@ class ExperimentCreate extends Component {
   }
   hideSettingsModal() {
     this.setState({ ...this.state, settingsModalVisible: false })
+  }
+  updateSettings(settings) {
+    this.setState({ ...this.state, settings })
   }
 
   openFabOptions() {
@@ -110,16 +113,14 @@ class ExperimentCreate extends Component {
       <Container>
         <Header title={this.state.title || "New Experiment"} actions={headerActions}/>
         <Content padder>
-          <Form>
-            <Item>
-              <Input
-                placeholder="Experiment Name"
-                selectTextOnFocus={true}
-                onChangeText={(text) => this.setState({ title: text })}
-                value={this.state.title}
-              />
-            </Item>
-          </Form>
+          <MKTextField
+            placeholder="Experiment Name"
+            selectTextOnFocus={true}
+            onChangeText={(text) => this.setState({ title: text })}
+            style={{ flex: 1, marginBottom: 20 }}
+            textInputStyle={{ fontSize: 20 }}
+            value={this.state.title}
+          />
           {
             this.state.form.map((data, n) => {
               return <FormItemEdit key={n} {...data}
@@ -151,7 +152,8 @@ class ExperimentCreate extends Component {
         <ExperimentSettingsModal
           visible={this.state.settingsModalVisible}
           hide={() => { this.hideSettingsModal() }}
-          save={(settings) => { }} />
+          settings={this.state.settings}
+          save={(settings) => { this.updateSettings(settings) }} />
       </Container>
     )
   }

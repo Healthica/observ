@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Input, Picker, Item, Text, View, Button, Icon } from 'native-base'
+import { Picker, Item, Text, View, Button, Icon } from 'native-base'
+import { MKTextField } from 'react-native-material-kit'
 
 export default class ScaleEdit extends Component {
   onChange(options) {
@@ -39,19 +40,21 @@ export default class ScaleEdit extends Component {
         </View>
         <View style={style.row}>
           <Text style={style.labelText}>{this.props.options.min}</Text>
-          <Input
+          <MKTextField
             placeholder="Label (optional)"
             onChangeText={ text => this.onChange({ minLabel: text }) }
             selectTextOnFocus={true}
+            style={style.labelInput}
             value={this.props.options.minLabel}
           />
         </View>
         <View style={style.row}>
           <Text style={style.labelText}>{this.props.options.max}</Text>
-          <Input
+          <MKTextField
             placeholder="Label (optional)"
             onChangeText={ text => this.onChange({ maxLabel: text }) }
             selectTextOnFocus={true}
+            style={style.labelInput}
             value={this.props.options.maxLabel}
           />
         </View>
@@ -64,7 +67,8 @@ const style = {
   row: {
     flexDirection:'row',
     flexWrap:'wrap',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 10
   },
   dropdown: {
     width: 60
@@ -72,5 +76,8 @@ const style = {
   labelText: {
     color: '#999',
     width: 30
+  },
+  labelInput: {
+    width: 140
   }
 }

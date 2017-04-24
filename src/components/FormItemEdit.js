@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Input, Button, Icon, View } from 'native-base'
+import { Button, Icon, View } from 'native-base'
+import { MKTextField } from 'react-native-material-kit'
 
 import Counter from './FormItems/CounterEdit'
 import Dropdown from './FormItems/DropdownEdit'
@@ -27,12 +28,13 @@ export default class FormItemEdit extends Component {
     return (
       <View style={style.item}>
         <View style={style.row}>
-          <Input
+          <MKTextField
             placeholder="Question"
             selectTextOnFocus={true}
             onChangeText={ text => this.onChange({ question: text }) }
+            style={{ flex: 1 }}
+            textInputStyle={{ fontSize: 18 }}
             value={this.props.question}
-            style={style.title}
           />
           <Button transparent>
             <Icon name="md-trash" onPress={() => {this.props.onDelete()}} style={style.moreIcon} />
@@ -56,11 +58,6 @@ const style = {
     paddingTop: 16,
     paddingBottom: 16,
     marginBottom: 16
-  },
-  title: {
-    fontSize: 22,
-    borderBottomWidth: 1,
-    borderBottomColor: '#dfdfdf'
   },
   moreIcon: {
     color: '#999',

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Input, Text, View, Button, Icon } from 'native-base'
+import { Text, View, Button, Icon } from 'native-base'
+import { MKTextField } from 'react-native-material-kit'
 
 export default class DropdownEdit extends Component {
   onChange(index, text) {
@@ -40,10 +41,11 @@ export default class DropdownEdit extends Component {
           this.props.options.map((o, i) => {
             return (
               <View key={i} style={style.row}>
-                <Input
+                <MKTextField
                   onChangeText={ text => this.onChange(i, text) }
                   onBlur={() => {this.onBlur(i)}}
                   selectTextOnFocus={true}
+                  style={{ width: 140 }}
                   value={o}
                 />
                 <Button transparent onPress={() => {this.onDeleteOption(i)}}>
