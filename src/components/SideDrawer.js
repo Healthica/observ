@@ -63,7 +63,8 @@ class SideDrawer extends Component {
       <Drawer
         ref={(ref) => { this._drawer = ref }}
         content={<ConnectedSideMenu />}
-        open={this.props.drawer.open}>
+        open={this.props.drawer.open}
+        tweenEasing='easeOutCubic'>
         {this.props.children}
       </Drawer>
     )
