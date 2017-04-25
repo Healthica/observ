@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { Container, Content, List, Button, H2, Text } from 'native-base'
 import Header from '../components/Header'
+import SideDrawer from '../components/SideDrawer'
 
 import ExperimentOverview from '../components/ExperimentOverview'
 import ExperimentCreateButton from '../components/ExperimentCreateButton'
@@ -63,44 +64,46 @@ class Experiments extends Component {
   render() {
     return (
       <Container>
-        <Header title="Experiments" showMenu={true} />
-        <Content>
-          <List>
-          {
-            this.props.experiments.map((e) => {
-              return <ExperimentOverview key={e.id} data={e} />
-            })
-          }
-          </List>
-
-          <Text style={{
-            fontSize: 16,
-            textAlign: 'center',
-            marginTop: 80,
-            marginBottom: 20
-          }}>
-            Start a new experiment
-          </Text>
-          <List>
+        <SideDrawer>
+          <Header title="Experiments" showMenu={true} />
+          <Content>
+            <List>
             {
-              experimentsPresets.map((e, i) => {
-                if (this.state.showAllPresets === false && i >= minimumVisiblePresets) {
-                  return
-                }
-                return <ExperimentCreateButton key={i} data={e} />
+              this.props.experiments.map((e) => {
+                return <ExperimentOverview key={e.id} data={e} />
               })
             }
-          </List>
-          <Button light full
-            onPress={() => {
-              this.setState({ showAllPresets: !this.state.showAllPresets })
-            }}
-          >
-            <Text>
-              { this.state.showAllPresets ? 'Show less' : 'Show more' }
+            </List>
+
+            <Text style={{
+              fontSize: 16,
+              textAlign: 'center',
+              marginTop: 80,
+              marginBottom: 20
+            }}>
+              Start a new experiment
             </Text>
-          </Button>
-        </Content>
+            <List>
+              {
+                experimentsPresets.map((e, i) => {
+                  if (this.state.showAllPresets === false && i >= minimumVisiblePresets) {
+                    return
+                  }
+                  return <ExperimentCreateButton key={i} data={e} />
+                })
+              }
+            </List>
+            <Button light full
+              onPress={() => {
+                this.setState({ showAllPresets: !this.state.showAllPresets })
+              }}
+            >
+              <Text>
+                { this.state.showAllPresets ? 'Show less' : 'Show more' }
+              </Text>
+            </Button>
+          </Content>
+        </SideDrawer>
       </Container>
     )
   }

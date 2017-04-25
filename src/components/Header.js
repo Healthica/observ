@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
-import { Actions } from 'react-native-router-flux'
-import { Header, Body, Left, Right, Button, Title, Icon, Text } from 'native-base'
+import { connect } from 'react-redux'
+import * as actionCreators from '../store/action-creators'
 
-export default class AppHeader extends Component {
+import { Actions } from 'react-native-router-flux'
+import { Body, Button, Drawer, Header, Icon, Left, Right, Text, Title } from 'native-base'
+
+class AppHeader extends Component {
+  openDrawer() {
+    this.props.dispatch(actionCreators.openDrawer())
+  }
+
   render() {
     return (
       <Header>
@@ -11,7 +18,7 @@ export default class AppHeader extends Component {
           <Left>
               {
                 this.props.showMenu === true &&
-                <Button transparent>
+                <Button transparent onPress={() => { this.openDrawer() }}>
                   <Icon name='menu' />
                 </Button>
               }
@@ -51,3 +58,5 @@ export default class AppHeader extends Component {
     )
   }
 }
+
+export default connect()(AppHeader)

@@ -55,3 +55,21 @@ export function user(state = initialUserState, action) {
       return state
   }
 }
+
+const initialDrawerState = {
+  open: false
+}
+export function drawer(state = initialDrawerState, action) {
+  switch (action.type) {
+    case 'DRAWER_OPEN':
+      return {
+        open: true
+      }
+    case 'DRAWER_CLOSE':
+      return {
+        open: false
+      }
+    default:
+      return state
+  }
+}
