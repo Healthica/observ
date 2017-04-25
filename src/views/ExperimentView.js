@@ -12,6 +12,14 @@ class ExperimentEdit extends Component {
     this.experiment = _find(this.props.experiments, { id: this.props.experimentId }) || {
       title: ''
     }
+    this.state = {}
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.experiment = _find(nextProps.experiments, { id: nextProps.experimentId }) || {
+      title: ''
+    }
+    this.setState(this.state)
   }
 
   onDelete() {
