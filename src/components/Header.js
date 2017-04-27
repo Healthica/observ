@@ -4,7 +4,7 @@ import * as actionCreators from '../store/action-creators'
 
 import { Actions } from 'react-native-router-flux'
 import { Body, Button, Drawer, Header, Icon, Left, Right, Text, Title, View } from 'native-base'
-import { MKButton } from 'react-native-material-kit'
+import { MKButton, MKColor } from 'react-native-material-kit'
 
 class AppHeader extends Component {
   openDrawer() {
@@ -67,7 +67,7 @@ class AppHeader extends Component {
             <MKButton
               style={style.miniFab}
               fab={true}
-              backgroundColor='#268AFF'
+              backgroundColor={MKColor.LightBlue}
               onPress={() => {this.props.miniFab.cb()}}>
               <Icon name='md-add' style={{ fontSize: 20, color: '#fff' }} />
             </MKButton>
