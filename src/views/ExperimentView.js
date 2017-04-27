@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
-import { Container, Button, Content, Text } from 'native-base'
+import { ActionSheet, Container, Button, Content, Text } from 'native-base'
 import { MKButton, MKColor } from 'react-native-material-kit'
 
 import Header from '../components/Header'
+import AddMeasurementModal from '../components/AddMeasurementModal'
 
 import _find from 'lodash/find'
 
@@ -15,7 +16,9 @@ class ExperimentEdit extends Component {
     this.experiment = _find(this.props.experiments, { id: this.props.experimentId }) || {
       title: ''
     }
-    this.state = {}
+    this.state = {
+      measurementModalVisible: false
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,14 +39,22 @@ class ExperimentEdit extends Component {
     Actions.experimentEdit({ experiment: this.experiment })
   }
 
-  addMeasurement() {
-    alert('Add Measurement')
+  addMeasurement(measurement) {
+    alert(JSON.stringify(measurement))
+    this.hideMeasurementModal()
+    // this.setState({ ...this.state, measurement })
+  }
+  showMeasurementModal() {
+    this.setState({ ...this.state, measurementModalVisible: true })
+  }
+  hideMeasurementModal() {
+    this.setState({ ...this.state, measurementModalVisible: false })
   }
 
   render() {
     return (
       <Container>
-        <Header title={ this.experiment.title } big miniFab={{ cb: () => { this.addMeasurement() }}} />
+        <Header title={ this.experiment.title } big miniFab={{ cb: () => { this.showMeasurementModal() }}} />
         <Content style={{ padding: 16 }}>
           {
             false &&
@@ -53,7 +64,7 @@ class ExperimentEdit extends Component {
           }
           <Text style={style.title}>Measurements</Text>
           <MKButton
-            onPress={() => {this.addMeasurement()}}
+            onPress={() => {this.showMeasurementModal()}}
             backgroundColor={MKColor.LightBlue} style={style.smallButton}>
             <Text style={style.smallButtonText}>
               Add Measurement
@@ -78,6 +89,11 @@ class ExperimentEdit extends Component {
             </Text>
           </Button>
         </Content>
+        <AddMeasurementModal
+          visible={this.state.measurementModalVisible}
+          hide={() => { this.hideMeasurementModal() }}
+          form={this.state.form}
+          save={(measurement) => { this.addMeasurement(measurement) }} />
       </Container>
     )
   }
