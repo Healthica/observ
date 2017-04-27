@@ -14,66 +14,49 @@ class AppHeader extends Component {
   render() {
     const big = this.props.big || false
     return (
-      <View>
-        <View style={{ zIndex: 10 }}>
-
-          <Header style={big ? style.bigHeader : {}}>
-            {
-              this.props.noLeftActions !== true &&
-              <Left style={big ? style.bigLeft : {}}>
-                  {
-                    this.props.showMenu === true &&
-                    <Button transparent onPress={() => { this.openDrawer() }}>
-                      <Icon name='menu' />
-                    </Button>
-                  }
-                  {
-                    this.props.showMenu !== true &&
-                    <Button transparent onPress={() => { Actions.pop() }}>
-                      <Icon name='arrow-back' />
-                    </Button>
-                  }
-              </Left>
-            }
-            <Body style={big ? style.bigBody : {}}>
-              <Title>{this.props.title}</Title>
-            </Body>
-            {
-              this.props.actions &&
-              <Right>
-                {
-                  this.props.actions.map((action, i) => {
-                    return (
-                      <Button key={i} onPress={action.cb} transparent >
-                        {
-                          action.text &&
-                          <Text>{action.text}</Text>
-                        }
-                        {
-                          action.icon &&
-                          <Icon name={action.icon} />
-                        }
-                      </Button>
-                    )
-                  })
-                }
-              </Right>
-            }
-          </Header>
-        </View>
+      <Header style={big ? style.bigHeader : {}}>
         {
-          this.props.miniFab &&
-          <View style={{ zIndex: 500, position: 'absolute', right: 25, bottom: -20 }}>
-            <MKButton
-              style={style.miniFab}
-              fab={true}
-              backgroundColor={MKColor.LightBlue}
-              onPress={() => {this.props.miniFab.cb()}}>
-              <Icon name='md-add' style={{ fontSize: 20, color: '#fff' }} />
-            </MKButton>
-          </View>
+          this.props.noLeftActions !== true &&
+          <Left style={big ? style.bigLeft : {}}>
+              {
+                this.props.showMenu === true &&
+                <Button transparent onPress={() => { this.openDrawer() }}>
+                  <Icon name='menu' />
+                </Button>
+              }
+              {
+                this.props.showMenu !== true &&
+                <Button transparent onPress={() => { Actions.pop() }}>
+                  <Icon name='arrow-back' />
+                </Button>
+              }
+          </Left>
         }
-      </View>
+        <Body style={big ? style.bigBody : {}}>
+          <Title>{this.props.title}</Title>
+        </Body>
+        {
+          this.props.actions &&
+          <Right>
+            {
+              this.props.actions.map((action, i) => {
+                return (
+                  <Button key={i} onPress={action.cb} transparent >
+                    {
+                      action.text &&
+                      <Text>{action.text}</Text>
+                    }
+                    {
+                      action.icon &&
+                      <Icon name={action.icon} />
+                    }
+                  </Button>
+                )
+              })
+            }
+          </Right>
+        }
+      </Header>
     )
   }
 }

@@ -2,10 +2,11 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
-import { ActionSheet, Container, Button, Content, Text } from 'native-base'
+import { ActionSheet, Card, CardItem, Container, Button, Content, Icon, Text } from 'native-base'
 import { MKButton, MKColor } from 'react-native-material-kit'
 
 import Header from '../components/Header'
+import DropdownMenu from '../components/DropdownMenu'
 import AddMeasurementModal from '../components/AddMeasurementModal'
 
 import _find from 'lodash/find'
@@ -17,7 +18,8 @@ class ExperimentEdit extends Component {
       title: ''
     }
     this.state = {
-      measurementModalVisible: false
+      measurementModalVisible: false,
+      menuVisible: false
     }
   }
 
@@ -36,7 +38,12 @@ class ExperimentEdit extends Component {
   }
 
   onEdit() {
+    this.setState({ ...this.state, menuVisible: false })
     Actions.experimentEdit({ experiment: this.experiment })
+  }
+
+  toggleMenu() {
+    this.setState({ ...this.state, menuVisible: !this.state.menuVisible })
   }
 
   addMeasurement(measurement) {
@@ -54,7 +61,7 @@ class ExperimentEdit extends Component {
   render() {
     return (
       <Container>
-        <Header title={ this.experiment.title } big miniFab={{ cb: () => { this.showMeasurementModal() }}} />
+        <Header title={ this.experiment.title } actions={[{ icon: 'md-more', cb: () => { this.toggleMenu() }}]} />
         <Content style={{ padding: 16 }}>
           {
             false &&
@@ -78,28 +85,38 @@ class ExperimentEdit extends Component {
               Show Results
             </Text>
           </MKButton>
-          <Button onPress={() => {this.onDelete()}} >
-            <Text>
-              Delete Experiment
-            </Text>
-          </Button>
-          <Button onPress={() => { this.onEdit()}} >
-            <Text>
-              Edit Experiment
-            </Text>
-          </Button>
         </Content>
         <AddMeasurementModal
           visible={this.state.measurementModalVisible}
           hide={() => { this.hideMeasurementModal() }}
           form={this.state.form}
           save={(measurement) => { this.addMeasurement(measurement) }} />
+        {
+          this.state.menuVisible &&
+          <DropdownMenu style={style.menu}
+            items={[{
+              text: 'Edit',
+              icon: 'md-create',
+              cb: () => { this.onEdit() }
+            }, {
+              text: 'Delete',
+              icon: 'md-trash',
+              cb: () => { this.onDelete() }
+            }]} />
+        }
       </Container>
     )
   }
 }
 
 const style = {
+  menu: {
+    position: 'absolute',
+    top: 40,
+    right: 10,
+    width: 160,
+    padding: 0
+  },
   title: {
     fontSize: 18,
     color: '#999',
