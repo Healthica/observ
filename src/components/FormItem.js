@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Icon, View, Text } from 'native-base'
 
+import Counter from './FormItems/Counter'
 import Dropdown from './FormItems/Dropdown'
 import Scale from './FormItems/Scale'
 
@@ -17,6 +18,9 @@ export default class FormItem extends Component {
         break;
       case 'dropdown':
         Item = <Dropdown {...this.props} />
+        break;
+      case 'counter':
+        Item = <Counter {...this.props} />
         break;
     }
 
