@@ -2,6 +2,7 @@ import _findIndex from 'lodash/findIndex'
 
 const initialExperimentsState = []
 export function experiments(state = initialExperimentsState, action) {
+  let newState, index
   switch (action.type) {
     case 'SET_EXPERIMENTS_STATE':
       return action.experiments
@@ -13,8 +14,8 @@ export function experiments(state = initialExperimentsState, action) {
     ]
 
     case 'UPDATE_EXPERIMENT':
-      const newState = state.slice()
-      const index = _findIndex(newState, { id: action.experiment.id })
+      newState = state.slice()
+      index = _findIndex(newState, { id: action.experiment.id })
       if (index > -1) {
         newState[index] = Object.assign({}, newState[index], action.experiment)
       }
@@ -22,6 +23,14 @@ export function experiments(state = initialExperimentsState, action) {
 
     case 'DELETE_EXPERIMENT':
       return _.reject(state, { id: action.experimentId })
+
+    case 'ADD_MEASUREMENT':
+      newState = state.slice()
+      index = _findIndex(newState, { id: action.experimentId })
+      if (index > -1) {
+        newState[index].measurements.push(action.measurement)
+      }
+      return newState
 
     case 'ERROR':
       alert(JSON.stringify(action))

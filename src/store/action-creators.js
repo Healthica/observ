@@ -13,7 +13,7 @@ export function loadLocalStateExperiments() {
             title: 'Diet Experiment',
             status: 'active',
             form: [],
-            measurments: [],
+            measurements: [],
             settings: {},
             results: {
               effectSize: 1.4,
@@ -85,6 +85,13 @@ export function updateExperiment(experiment) {
 export function deleteExperiment(experimentId) {
   return function (dispatch, getState) {
     dispatch({ type: 'DELETE_EXPERIMENT', experimentId })
+    store.save(STORE_EXPERIMENTS, getState().experiments)
+  }
+}
+
+export function addMeasurement(measurment) {
+  return function (dispatch, getState) {
+    dispatch({ type: 'ADD_MEASUREMENT', ...measurment })
     store.save(STORE_EXPERIMENTS, getState().experiments)
   }
 }

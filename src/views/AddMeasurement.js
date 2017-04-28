@@ -23,7 +23,12 @@ class AddMeasurement extends Component {
   }
 
   save() {
-    alert(JSON.stringify(this.state.answers))
+    this.props.dispatch(actionCreators.addMeasurement({
+      experimentId: this.state.id,
+      measurement: {
+        answers: this.state.answers
+      }
+    }))
     Actions.pop()
   }
 

@@ -53,7 +53,7 @@ class ExperimentEdit extends Component {
         status: 'active',
         form: [],
         settings: {},
-        measurments: [],
+        measurements: [],
         results: {},
         ..._pick(this.state, ['title', 'form', 'settings'])
       }))
