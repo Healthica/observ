@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, Radio } from 'native-base'
-import { MKTextField } from 'react-native-material-kit'
+import { Radio, Text, View } from 'native-base'
 
 export default class Scale extends Component {
   onChange(i) {

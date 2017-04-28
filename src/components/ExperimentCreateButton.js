@@ -10,17 +10,17 @@ export default class ExperimentCreateButton extends Component {
           experiment: {
             title: '',
             form: [
-              {
-                id: 1,
-                question: 'How do you feel?',
-                type: 'scale',
-                options: {
-                  min: 0,
-                  max: 10,
-                  minLabel: '',
-                  maxLabel: ''
-                }
-              }
+              // {
+              //   id: 1,
+              //   question: 'How do you feel?',
+              //   type: 'scale',
+              //   options: {
+              //     min: 0,
+              //     max: 10,
+              //     minLabel: '',
+              //     maxLabel: ''
+              //   }
+              // }
             ],
             settings: {}
           }
