@@ -6,17 +6,25 @@ import { Container, Button, Content, Icon, Text } from 'native-base'
 import { MKButton, MKColor } from 'react-native-material-kit'
 
 import Header from '../components/Header'
+import FormItem from '../components/FormItem'
 
 class AddMeasurement extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, {
-      
+      answers: []
     }, this.props.experiment)
   }
 
+  updateFormItem(i, answer) {
+    const newAnswers = this.state.answers.slice()
+    newAnswers[i] = answer
+    this.setState({ ...this.state, answers: newAnswers })
+  }
+
   save() {
-    alert(JSON.stringify(this.state))
+    alert(JSON.stringify(this.state.answers))
+    Actions.pop()
   }
 
   render() {
@@ -24,7 +32,17 @@ class AddMeasurement extends Component {
       <Container>
         <Header title='Add Measurement' actions={[{ text: 'Save', cb: () => { this.save() }}]} />
         <Content style={{ padding: 16 }}>
-          <Text>
+          {
+            this.state.form.map((item, i) => {
+              return (
+                <FormItem key={i}
+                  {...item}
+                  answer={this.state.answers[i]}
+                  onChange={(answer) => { this.updateFormItem(i, answer) }} />
+              )
+            })
+          }
+          <Text style={{ color: '#ccc', marginTop: 40, marginBottom: 100, fontSize: 10 }}>
             {
               JSON.stringify(this.state, null, 2)
             }
