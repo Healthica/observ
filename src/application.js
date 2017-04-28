@@ -8,6 +8,7 @@ import Welcome from './views/Welcome'
 import Experiments from './views/Experiments'
 import ExperimentEdit from './views/ExperimentEdit'
 import ExperimentView from './views/ExperimentView'
+import AddMeasurement from './views/AddMeasurement'
 
 export default class Application extends Component {
   render() {
@@ -20,6 +21,7 @@ export default class Application extends Component {
             <Scene key="experiments" component={Experiments} />
             <Scene key="experimentEdit" component={ExperimentEdit} />
             <Scene key="experimentView" component={ExperimentView} />
+            <Scene key="addMeasurement" component={AddMeasurement} />
           </Scene>
         </Router>
       </Provider>

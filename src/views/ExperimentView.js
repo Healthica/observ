@@ -7,18 +7,16 @@ import { MKButton, MKColor } from 'react-native-material-kit'
 
 import Header from '../components/Header'
 import DropdownMenu from '../components/DropdownMenu'
-import AddMeasurementModal from '../components/AddMeasurementModal'
 
 import _find from 'lodash/find'
 
-class ExperimentEdit extends Component {
+class ExperimentView extends Component {
   constructor(props) {
     super(props)
     this.experiment = _find(this.props.experiments, { id: this.props.experimentId }) || {
       title: ''
     }
     this.state = {
-      measurementModalVisible: false,
       menuVisible: false
     }
   }
@@ -46,16 +44,8 @@ class ExperimentEdit extends Component {
     this.setState({ ...this.state, menuVisible: !this.state.menuVisible })
   }
 
-  addMeasurement(measurement) {
-    alert(JSON.stringify(measurement))
-    this.hideMeasurementModal()
-    // this.setState({ ...this.state, measurement })
-  }
-  showMeasurementModal() {
-    this.setState({ ...this.state, measurementModalVisible: true })
-  }
-  hideMeasurementModal() {
-    this.setState({ ...this.state, measurementModalVisible: false })
+  navigateToAddMeasurement() {
+    Actions.addMeasurement({ experiment: this.experiment })
   }
 
   render() {
@@ -71,7 +61,7 @@ class ExperimentEdit extends Component {
           }
           <Text style={style.title}>Measurements</Text>
           <MKButton
-            onPress={() => {this.showMeasurementModal()}}
+            onPress={() => {this.navigateToAddMeasurement()}}
             backgroundColor={MKColor.LightBlue} style={style.smallButton}>
             <Text style={style.smallButtonText}>
               Add Measurement
@@ -86,11 +76,6 @@ class ExperimentEdit extends Component {
             </Text>
           </MKButton>
         </Content>
-        <AddMeasurementModal
-          visible={this.state.measurementModalVisible}
-          hide={() => { this.hideMeasurementModal() }}
-          form={this.state.form}
-          save={(measurement) => { this.addMeasurement(measurement) }} />
         {
           this.state.menuVisible &&
           <DropdownMenu style={style.menu}
@@ -142,5 +127,5 @@ const mapStateToProps = (state) => {
     experiments: state.experiments
   }
 }
-const ConnectedExperimentEdit = connect(mapStateToProps)(ExperimentEdit)
-export default ConnectedExperimentEdit
+const ConnectedExperimentView = connect(mapStateToProps)(ExperimentView)
+export default ConnectedExperimentView
