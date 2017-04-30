@@ -1,4 +1,4 @@
-import _findIndex from 'lodash/findIndex'
+import moment from 'moment'
 
 const initialExperimentsState = []
 export function experiments(state = initialExperimentsState, action) {
@@ -15,7 +15,7 @@ export function experiments(state = initialExperimentsState, action) {
 
     case 'UPDATE_EXPERIMENT':
       newState = state.slice()
-      index = _findIndex(newState, { id: action.experiment.id })
+      index = _.findIndex(newState, { id: action.experiment.id })
       if (index > -1) {
         newState[index] = Object.assign({}, newState[index], action.experiment)
       }
@@ -26,11 +26,35 @@ export function experiments(state = initialExperimentsState, action) {
 
     case 'ADD_MEASUREMENT':
       newState = state.slice()
-      index = _findIndex(newState, { id: action.experimentId })
+      index = _.findIndex(newState, { id: action.experimentId })
       if (index > -1) {
-        newState[index].measurements.push(action.measurement)
+        const measurements = newState[index].measurements
+        measurements.push(action.measurement)
       }
       return newState
+
+    case 'DELETE_MEASUREMENT':
+      index = _.findIndex(state, { id: action.experimentId })
+      if (index > -1) {
+        measurementIndex = _.findIndex(state[index].measurements, { id: action.measurementId })
+        if (measurementIndex > -1) {
+          newState = state.slice()
+          newState[index].measurements.splice(measurementIndex, 1)
+          return newState
+        }
+      }
+      return state
+
+    case 'ORDER_MEASUREMENTS':
+      index = _.findIndex(state, { id: action.experimentId })
+      if (index > -1) {
+        newState = state.slice()
+        newState[index].measurements = _.sortBy(newState[index].measurements, m => {
+          return -moment(m.datetime).unix()
+        })
+        return newState
+      }
+      return state
 
     case 'ERROR':
       alert(JSON.stringify(action))

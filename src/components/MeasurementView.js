@@ -9,6 +9,7 @@ export default class MeasurementView extends Component {
     return (
       <ListItem onPress={() => {
         // Actions.experimentView({ experimentId: this.props.data.id })
+        this.props.onDelete()
       }}>
         <Body>
           <Text note>

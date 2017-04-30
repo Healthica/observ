@@ -16,7 +16,7 @@ class AddMeasurement extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, {
-      id: uuid(),
+      measurementId: uuid(),
       datetime: moment(),
       isDateTimePickerVisible: false,
       answers: []
@@ -48,7 +48,7 @@ class AddMeasurement extends Component {
     this.props.dispatch(actionCreators.addMeasurement({
       experimentId: this.state.id,
       measurement: {
-        id: this.state.id,
+        id: this.state.measurementId,
         datetime: this.state.datetime,
         answers: this.state.answers
       }

@@ -71,7 +71,12 @@ class ExperimentView extends Component {
           <List>
             {
               this.experiment.measurements.map((measurement, i) => {
-                return <MeasurementView key={i} {...measurement} />
+                return <MeasurementView key={i} {...measurement} onDelete={() => {
+                  this.props.dispatch(actionCreators.deleteMeasurement({
+                    experimentId: this.experiment.id,
+                    measurementId: measurement.id
+                  }))
+                }} />
               })
             }
           </List>

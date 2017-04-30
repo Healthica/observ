@@ -92,6 +92,14 @@ export function deleteExperiment(experimentId) {
 export function addMeasurement(measurment) {
   return function (dispatch, getState) {
     dispatch({ type: 'ADD_MEASUREMENT', ...measurment })
+    dispatch({ type: 'ORDER_MEASUREMENTS', experimentId: measurment.experimentId })
+    store.save(STORE_EXPERIMENTS, getState().experiments)
+  }
+}
+
+export function deleteMeasurement(payload) {
+  return function (dispatch, getState) {
+    dispatch({ type: 'DELETE_MEASUREMENT', ...payload })
     store.save(STORE_EXPERIMENTS, getState().experiments)
   }
 }
