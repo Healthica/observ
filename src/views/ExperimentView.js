@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
-import { ActionSheet, Card, CardItem, Container, Button, Content, Icon, Text } from 'native-base'
+import { ActionSheet, Card, CardItem, Container, Button, Content, Icon, List, Text } from 'native-base'
 import { MKButton, MKColor } from 'react-native-material-kit'
 
 import Header from '../components/Header'
 import DropdownMenu from '../components/DropdownMenu'
+import MeasurementView from '../components/MeasurementView'
 
 import _find from 'lodash/find'
 
@@ -67,6 +68,13 @@ class ExperimentView extends Component {
               Add Measurement
             </Text>
           </MKButton>
+          <List>
+            {
+              this.experiment.measurements.map((measurement, i) => {
+                return <MeasurementView key={i} {...measurement} />
+              })
+            }
+          </List>
           <Text style={style.title}>Results</Text>
           <MKButton
             onPress={() => {}}

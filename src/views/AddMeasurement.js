@@ -8,10 +8,15 @@ import { MKButton, MKColor } from 'react-native-material-kit'
 import Header from '../components/Header'
 import FormItem from '../components/FormItem'
 
+import uuid from 'uuid/v4'
+import moment from 'moment'
+
 class AddMeasurement extends Component {
   constructor(props) {
     super(props)
     this.state = Object.assign({}, {
+      id: uuid(),
+      datetime: moment(),
       answers: []
     }, this.props.experiment)
   }
@@ -26,6 +31,8 @@ class AddMeasurement extends Component {
     this.props.dispatch(actionCreators.addMeasurement({
       experimentId: this.state.id,
       measurement: {
+        id: this.state.id,
+        datetime: this.state.datetime,
         answers: this.state.answers
       }
     }))
@@ -36,6 +43,9 @@ class AddMeasurement extends Component {
     return (
       <Container>
         <Header title='Add Measurement' actions={[{ text: 'Save', cb: () => { this.save() }}]} />
+        <Text>
+          { moment(this.state.datetime).format("DD/MM h:mm A") }
+        </Text>
         <Content style={{ padding: 16 }}>
           {
             this.state.form.map((item, i) => {

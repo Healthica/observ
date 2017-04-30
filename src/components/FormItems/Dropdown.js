@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Item, Picker } from 'native-base'
 
 export default class Dropdown extends Component {
+  //TODO fix default value to the first item
+
   onChange(i) {
     this.props.onChange(i)
   }
