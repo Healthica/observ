@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import * as actionCreators from '../store/action-creators'
 import { Container, Button, Content, Icon, Text } from 'native-base'
 import { MKButton, MKColor } from 'react-native-material-kit'
+import DateTimePicker from 'react-native-modal-datetime-picker'
 
 import Header from '../components/Header'
 import FormItem from '../components/FormItem'
@@ -17,6 +18,7 @@ class AddMeasurement extends Component {
     this.state = Object.assign({}, {
       id: uuid(),
       datetime: moment(),
+      isDateTimePickerVisible: false,
       answers: []
     }, this.props.experiment)
   }
@@ -25,6 +27,21 @@ class AddMeasurement extends Component {
     const newAnswers = this.state.answers.slice()
     newAnswers[i] = answer
     this.setState({ ...this.state, answers: newAnswers })
+  }
+
+  showDateTimePicker() {
+    this.setState({ ...this.state, isDateTimePickerVisible: true })
+  }
+  hideDateTimePicker() {
+    this.setState({ ...this.state, isDateTimePickerVisible: false })
+  }
+
+  handleDatePicked(date) {
+    const datetime = moment(date)
+    if (datetime.isValid()) {
+      this.setState({ ...this.state, datetime })
+    }
+    this.hideDateTimePicker()
   }
 
   save() {
@@ -43,9 +60,15 @@ class AddMeasurement extends Component {
     return (
       <Container>
         <Header title='Add Measurement' actions={[{ text: 'Save', cb: () => { this.save() }}]} />
-        <Text>
-          { moment(this.state.datetime).format("DD/MM h:mm A") }
-        </Text>
+        <MKButton
+          onPress={() => {this.showDateTimePicker()}}
+          rippleColor='rgba(233, 233, 233, 0.2)'
+          style={style.datetimeButton}>
+          <Text style={style.datetimeText}>
+            { moment(this.state.datetime).format("DD/MM h:mm A") }
+          </Text>
+          <Icon name='ios-calendar-outline' style={style.datetimeText} />
+        </MKButton>
         <Content style={{ padding: 16 }}>
           {
             this.state.form.map((item, i) => {
@@ -57,18 +80,33 @@ class AddMeasurement extends Component {
               )
             })
           }
-          <Text style={{ color: '#ccc', marginTop: 40, marginBottom: 100, fontSize: 10 }}>
-            {
-              JSON.stringify(this.state, null, 2)
-            }
-          </Text>
         </Content>
+        <DateTimePicker
+          isVisible={this.state.isDateTimePickerVisible}
+          onConfirm={(date) => {this.handleDatePicked(date)}}
+          mode='datetime'
+          date={moment(this.state.datetime).toDate()}
+          onCancel={() => {this.hideDateTimePicker()}}
+        />
       </Container>
     )
   }
 }
 
 const style = {
+  datetimeButton: {
+    alignSelf: 'flex-end',
+    flex: 1,
+    flexDirection: 'row',
+    maxHeight: 60,
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  datetimeText: {
+    padding: 8,
+    color: '#666'
+  }
 }
 
 const mapStateToProps = (state) => {
